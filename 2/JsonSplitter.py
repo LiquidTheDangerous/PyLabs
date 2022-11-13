@@ -1,7 +1,7 @@
 
 class JsonSplitter:
-    def __init__(self,string : str):
-        self.string = self.__unpackString__(string,'{','}')
+    def __init__(self,string : str,chrOpen,chrClosed):
+        self.string = self.__unpackString__(string,chrOpen,chrClosed)
         self.currentPos = 0
         self.hasNext = True
     def __unpackString__(self, string: str, chrOpen, chrClosed):
@@ -47,7 +47,10 @@ class JsonSplitter:
         return self.string[start_pos:second_pos].strip("\t\n ")
 
 if (__name__ == "__main__"):
-    a = JsonSplitter("{ name : name,proper : {name : name, name : name, 4},123 }")
+    a = JsonSplitter("{ name : name,proper : {name : name, name : name, 4},pr : 123 }",'{','}')
+    while(a.hasNext):
+        print(a.nextLine())
+    a = JsonSplitter("[1,2,3,4,[1,2,3],4]",'[',']')
     while(a.hasNext):
         print(a.nextLine())
 
