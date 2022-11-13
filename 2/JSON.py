@@ -11,27 +11,10 @@ class JSON:
     def toJSON(self, obj):
         return self.__toJSON__(obj)
     def __toJSON__(self,obj,depth = 0):
-        if isinstance(obj, bool) or isinstance(obj, float) or isinstance(obj, int):
-            if isinstance(obj, bool):
-                if (obj):
-                    return "true"
-                else:
-                    return "false"
-            return str(obj)
-        elif obj is None:
-            return "null"
-        elif isinstance(obj, str):
-            return f"\"{obj}\""
+        if isinstance(obj, bool) or isinstance(obj, float) or isinstance(obj, int) or obj is None or isinstance(obj, str):
+            return self.__primitiveToJSON__(obj)
         elif isinstance(obj, dict):
-            res = f"\n{self.indent*depth}{{\n"
-            for key in obj.keys():
-                res += f"{self.indent*(depth+1)}\"{key}\" : {self.__toJSON__(obj[key], depth + 1)},\n"
-            if (self.typeInfo):
-                res += f"{self.indent*(depth+1)}\"{self.typeInfoProperty}\" : \"{dict.__name__}\""
-            else:
-                res = res[0:-2]
-            res += f"\n{self.indent*depth}}}"
-            return res
+            return self.__dictToJSON__(obj,depth)
         elif isinstance(obj, Iterable):
             return self.__iterableToJSON__(obj,depth)
         else:
@@ -58,13 +41,37 @@ class JSON:
                 res += ", "
         res += "]"
         return res;
+    def __primitiveToJSON__(self,obj):
+        if isinstance(obj, bool) or isinstance(obj, float) or isinstance(obj, int) or obj is None or isinstance(obj, str):
+            if (isinstance(obj,bool)):
+                if (obj):
+                    return "true"
+                else:
+                    return "false"
+            if (isinstance(obj,int) or isinstance(obj,float)):
+                return str(obj)
+            if (obj is None):
+                return "null"
+            if (isinstance(obj,str)):
+                return f"\"{obj}\""
+    def __dictToJSON__(self, obj,depth):
+        res = f"\n{self.indent*depth}{{\n"
+        for key in obj.keys():
+            res += f"{self.indent*(depth+1)}\"{key}\" : {self.__toJSON__(obj[key], depth + 1)},\n"
+        if (self.typeInfo):
+            res += f"{self.indent*(depth+1)}\"{self.typeInfoProperty}\" : \"{type(obj).__name__}\""
+        else:
+            res = res[0:-2]
+        res += f"\n{self.indent*depth}}}"
+        return res
 
-
+    def fromStringToJSON(self,string : str):
+        pass
 if (__name__ == "__main__"):
     class P:
         def __init__(self, name):
             self.name = name
 
     a = JSON(True,"type_info","    ");
-    print(a.toJSON(a))
+
 
