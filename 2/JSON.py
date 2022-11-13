@@ -1,6 +1,6 @@
 from collections.abc import Iterable
-
-
+from JsonSplitter import JsonSplitter
+from JSONTypeInfo import TypeInfo
 
 class JSON:
     def __init__(self,typeInfo=False, typeInfoProperty="typeInfo",indent="\t"):
@@ -65,13 +65,52 @@ class JSON:
         res += f"\n{self.indent*depth}}}"
         return res
 
-    def fromStringToJSON(self,string : str):
-        pass
+    def formJSONtoDict(self, string: str):
+        json_type = TypeInfo.getType(string);
+        if (json_type == TypeInfo.Object):
+            splitter =  JsonSplitter(string,"{","}")
+            dict_result = dict()
+            while(splitter.hasNext):
+                line = splitter.nextLine()
+                key,value = map(lambda x : x.strip("\t\n "),line.split(':',1))
+                key = key.strip("\"")
+                dict_result[key] = self.formJSONtoDict(value)
+            return dict_result
+        if(json_type == TypeInfo.Array):
+            splitter = JsonSplitter(string, "[", "]")
+            list_result = list()
+            while(splitter.hasNext):
+                value = splitter.nextLine();
+                list_result.append(self.formJSONtoDict(value))
+            return list_result
+        if(json_type == TypeInfo.boolean):
+            if (string == "true"):
+                return True
+            elif(string == "false"):
+                return False
+        if (json_type == TypeInfo.number):
+            try:
+                return int(string)
+            except ValueError:
+                return float(string)
+        if(json_type == TypeInfo.string):
+            return string.strip("\"\t\n ");
+        if (json_type == TypeInfo.null):
+            return None
 if (__name__ == "__main__"):
     class P:
-        def __init__(self, name):
+        def __init__(self, name,other):
+            self.other = other
             self.name = name
 
-    a = JSON(True,"type_info","    ");
-
+    a = JSON();
+    print("TO JSON")
+    string = a.toJSON(P("Andrey",[1,2,3,P("hello","world")]))
+    print(string,"\n")
+    print("FROM JSON")
+    res = a.formJSONtoDict(string)
+    print(res)
+    print(res['other'])
+    print(res['name'])
+    print(res['other'][3]['name'])
 
