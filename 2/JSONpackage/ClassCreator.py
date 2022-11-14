@@ -1,17 +1,23 @@
 import inspect
-import JSON
-
+from .JSON import JSON
+import sys
 class ClassCreator:
+    module = sys.modules[__name__]
+    @classmethod
+    def SetModule(cls, module):
+        cls.module = module
     @staticmethod
     def CreateClass(ClassName : str):
-        return globals()[ClassName].__new__(globals()[ClassName])
+        # print(sys.modules[__name__])
+        return ClassCreator.module.__dict__[ClassName].__new__(ClassCreator.module.__dict__[ClassName])
     @staticmethod
     def CreateClassFromDict(d: dict, typeInfoName="typeInfo"):
-        if (not isinstance(d,dict)):
+        if (not isinstance(d,dict) and not isinstance(d,list)):
             return d
         if (typeInfoName not in d):
             return d
         className = d[typeInfoName]
+        # print(globals())
         obj = ClassCreator.CreateClass(className)
         for key, val in d.items():
             if key == typeInfoName:

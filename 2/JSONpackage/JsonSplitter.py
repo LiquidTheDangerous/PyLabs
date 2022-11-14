@@ -24,10 +24,16 @@ class JsonSplitter:
 
     def nextLine(self):
         stack = list()
+        mark_flag = False
         start_pos = self.currentPos
         second_pos = -1
         for index in range(self.currentPos,len(self.string)):
             char = self.string[index]
+            if (char == '\"'):
+                if (not mark_flag):
+                    mark_flag = True
+                else:
+                    mark_flag = False
             if (char == '{'):
                 stack.append('{')
             elif (char == '}'):
@@ -37,7 +43,7 @@ class JsonSplitter:
             elif (char == ']'):
                 stack.pop()
             if(char == ','):
-                if(len(stack) == 0):
+                if(len(stack) == 0 and not mark_flag):
                     second_pos = index
                     break;
         if (second_pos == -1):

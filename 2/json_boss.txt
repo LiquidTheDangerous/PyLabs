@@ -1,0 +1,81 @@
+
+{
+  "name" : "Tashkinov",
+  "surname" : "Anatoli",
+  "department" : 
+  {
+    "departmentName" : "PNRPU, ITAS",
+    "address" : "Stud gorodok, Dedykina",
+    "typeInfo" : "Department"
+  },
+  "managers" : [
+    {
+      "name" : "Aleksandr",
+      "surname" : "Petrenko",
+      "department" : 
+      {
+        "departmentName" : "PNRPU, ITAS",
+        "address" : "Stud gorodok, Dedykina",
+        "typeInfo" : "Department"
+      },
+      "employees" : [
+        {
+          "name" : "Andrey",
+          "surname" : "Semenov",
+          "department" : 
+          {
+            "departmentName" : "PNRPU, ITAS",
+            "address" : "Stud gorodok, Dedykina",
+            "typeInfo" : "Department"
+          },
+          "typeInfo" : "Employee"
+        }, 
+        {
+          "name" : "Dmitri",
+          "surname" : "Aksenov",
+          "department" : 
+          {
+            "departmentName" : "PNRPU, ITAS",
+            "address" : "Stud gorodok, Dedykina",
+            "typeInfo" : "Department"
+          },
+          "typeInfo" : "Employee"
+        }],
+      "typeInfo" : "Manager"
+    }, 
+    {
+      "name" : "Oleksandr",
+      "surname" : "Opletin",
+      "department" : 
+      {
+        "departmentName" : "PNRPU, ITAS",
+        "address" : "Stud gorodok, Dedykina",
+        "typeInfo" : "Department"
+      },
+      "employees" : [
+        {
+          "name" : "Kostya",
+          "surname" : "Checkin",
+          "department" : 
+          {
+            "departmentName" : "PNRPU, ITAS",
+            "address" : "Stud gorodok, Dedykina",
+            "typeInfo" : "Department"
+          },
+          "typeInfo" : "Employee"
+        }, 
+        {
+          "name" : "Anna",
+          "surname" : "Luzina",
+          "department" : 
+          {
+            "departmentName" : "PNRPU, ITAS",
+            "address" : "Stud gorodok, Dedykina",
+            "typeInfo" : "Department"
+          },
+          "typeInfo" : "Employee"
+        }],
+      "typeInfo" : "Manager"
+    }],
+  "typeInfo" : "Boss"
+}

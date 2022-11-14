@@ -1,6 +1,6 @@
 from collections.abc import Iterable
-from JsonSplitter import JsonSplitter
-from JSONTypeInfo import TypeInfo
+from .JsonSplitter import JsonSplitter
+from .JSONTypeInfo import TypeInfo
 
 class JSON:
     def __init__(self,typeInfo=False, typeInfoProperty="typeInfo",indent="\t"):
