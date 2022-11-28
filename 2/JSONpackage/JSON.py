@@ -1,7 +1,7 @@
 from collections.abc import Iterable
-from .JsonSplitter import JsonSplitter
-from .JSONTypeInfo import TypeInfo
-
+from JsonSplitter import JsonSplitter
+from JSONTypeInfo import TypeInfo
+pprint()
 class JSON:
     def __init__(self,typeInfo=False, typeInfoProperty="typeInfo",indent="\t"):
         self.typeInfo = typeInfo
