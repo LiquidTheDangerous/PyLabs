@@ -105,3 +105,15 @@ if __name__ == "__main__":
 
     result = TestCollection(lst).filter(lambda x : x%2).collect()
     print(result)
+
+    def isPrime(x : int)->bool:
+        if (x == 1):
+            return False
+        for i in range(2, int(x**0.5) + 1):
+            if x % i == 0:
+                return False
+        return True
+
+    lst = [i for i in range(1,1000)]
+    res = TestCollection(lst).filter(isPrime).map(str).map(lambda x : int(x)+1).collect()
+    print(res)
